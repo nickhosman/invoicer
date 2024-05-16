@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 export default function Auth() {
     const { register, handleSubmit } = useForm();
+    const [ isLoggedIn, setIsLoggedIn ] = useState(pb.authStore.isValid);
     const [ isLoading, setLoading ] = useState(false);
 
     async function login(data) {
@@ -16,12 +17,27 @@ export default function Auth() {
             alert(e);
         }
         setLoading(false);
+        setIsLoggedIn(pb.authStore.isValid);
+    }
+
+    function logout() {
+        pb.authStore.clear();
+        setIsLoggedIn(pb.authStore.isValid);
+    }
+
+    if (isLoggedIn) {
+        return (
+            <>
+                <h1>Logged in: {pb.authStore.model.email}</h1>
+                <button onClick={logout}>Logout</button>
+            </>
+        );
     }
 
     return (
         <>
             {isLoading && <p>Loading...</p>}
-            <h1>Logged in: {pb.authStore.isValid.toString()}</h1>
+            <h1>Please Log In</h1>
 
             <form onSubmit={handleSubmit(login)}>
                 <input type="text" placeholder="Email" {...register("email")}/>
