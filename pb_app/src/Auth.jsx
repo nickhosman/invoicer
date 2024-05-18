@@ -25,11 +25,33 @@ export default function Auth() {
         setIsLoggedIn(pb.authStore.isValid);
     }
 
+    function createInvoice(id, client, ...items) {
+        return pb.collection("invoices").create({
+            client,
+            items,
+        });
+    }
+
+    function createItem(name, price) {
+        return pb.collection("items").create({
+            name,
+            price,
+        });
+    }
+
     if (isLoggedIn) {
         return (
             <>
                 <h1>Logged in: {pb.authStore.model.email}</h1>
                 <button onClick={logout}>Logout</button>
+
+                <div>
+                    <h2>Add item:</h2>
+                    <form>
+                        <input type="text" placeholder="Item name" {...register("name")}/>
+                        <input type="number" placeholder="Price" {...register("price")}/>
+                    </form>
+                </div>
             </>
         );
     }
@@ -43,7 +65,7 @@ export default function Auth() {
                 <input type="text" placeholder="Email" {...register("email")}/>
                 <input type="password" placeholder="Password" {...register("password")}/>
 
-                <button type="submit" disabled={isLoading}>{isLoading ? "isLoading..." : "Login"}</button>
+                <button type="submit" disabled={isLoading}>{isLoading ? "Loading..." : "Login"}</button>
             </form>
         </>
     );
