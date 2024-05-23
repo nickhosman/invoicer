@@ -25,6 +25,10 @@ export default function Auth() {
         setIsLoggedIn(pb.authStore.isValid);
     }
 
+    function signUp(data) {
+        return pb.collection("users").create(data);
+    }
+
     function createInvoice(id, client, ...items) {
         return pb.collection("invoices").create({
             client,
