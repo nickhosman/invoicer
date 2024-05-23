@@ -29,20 +29,6 @@ export default function Auth() {
         return pb.collection("users").create(data);
     }
 
-    function createInvoice(id, client, ...items) {
-        return pb.collection("invoices").create({
-            client,
-            items,
-        });
-    }
-
-    function createItem(name, price) {
-        return pb.collection("items").create({
-            name,
-            price,
-        });
-    }
-
     if (isLoggedIn) {
         return (
             <>
