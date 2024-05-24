@@ -62,11 +62,11 @@ export default function Profile() {
 
     return (
         <>
-            {invoices.forEach(invoice => {
-                <div className="invoice-tile">
-                    <p>{invoice.total}</p>
-                </div>
-            })}
+            {invoices.map((invoice) => (
+                    <div className="invoice-tile">
+                        <span>Bill to: {invoice.business}</span>
+                    </div>
+            ))}
         </>
     )
 }

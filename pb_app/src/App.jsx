@@ -1,9 +1,10 @@
 import Auth from './Auth'
+import Profile from './Profile'
 
 function App() {
   return (
     <>
-      <Auth />
+      <Profile />
     </>
   )
 }
