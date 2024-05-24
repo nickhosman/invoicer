@@ -18,6 +18,11 @@ export default function Invoice() {
         });
     }
 
+    function addItemForm() {
+        // add functionality for variable amount of items per invoice
+        return
+    }
+
     return (
         <>
             <h1>Invoice</h1>
