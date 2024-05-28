@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 export default function Invoice() {
     const { register, handleSubmit } = useForm();
 
-    function createInvoice(id, client, business, ...items) {
+    function createInvoice(client, business, ...items) {
         return pb.collection("invoices").create({
             client,
             items,
