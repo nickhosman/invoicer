@@ -51,7 +51,7 @@ export default function Profile() {
     return (
         <>
             {invoices.map((invoice) => (
-                    <div className="invoice-tile">
+                    <div className="flex items-center space-x-4">
                         <span>Bill to: {invoice.business}</span>
                         <span>Total: ${calculateTotal(invoice.items)}</span>
                     </div>
