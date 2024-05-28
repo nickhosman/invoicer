@@ -42,14 +42,18 @@ export default function Profile() {
             { name: "Gadget 3", price: 20, quantity: 4 }
           ],
         },
-
       ];
+
+    function calculateTotal(items) {
+        return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    }
 
     return (
         <>
             {invoices.map((invoice) => (
                     <div className="invoice-tile">
                         <span>Bill to: {invoice.business}</span>
+                        <span>Total: {calculateTotal(invoice.items)}</span>
                     </div>
             ))}
         </>
