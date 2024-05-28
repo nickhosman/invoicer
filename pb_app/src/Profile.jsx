@@ -53,7 +53,7 @@ export default function Profile() {
             {invoices.map((invoice) => (
                     <div className="invoice-tile">
                         <span>Bill to: {invoice.business}</span>
-                        <span>Total: {calculateTotal(invoice.items)}</span>
+                        <span>Total: ${calculateTotal(invoice.items)}</span>
                     </div>
             ))}
         </>
