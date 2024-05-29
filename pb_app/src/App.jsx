@@ -1,11 +1,12 @@
 import Auth from './Auth'
 import Profile from './Profile'
-import InvoiceFile from './InvoiceFile'
+import Invoice from './Invoice'
+import InvoiceForm from './InvoiceForm'
 
 function App() {
   return (
     <>
-      <InvoiceFile />
+      <InvoiceForm />
     </>
   )
 }

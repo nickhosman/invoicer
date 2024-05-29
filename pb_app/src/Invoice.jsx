@@ -1,43 +1,49 @@
-import { useForm } from "react-hook-form";
-
 export default function Invoice() {
-    const { register, handleSubmit } = useForm();
+    const invoice = {
+          client: "John Doe",
+          business: "ABC Company",
+          items: [
+            { name: "Product 1", price: 10, quantity: 2 },
+            { name: "Product 2", price: 20, quantity: 1 },
+            { name: "Product 3", price: 15, quantity: 3 }
+          ],
+        }
 
-    function createInvoice(client, business, ...items) {
-        return pb.collection("invoices").create({
-            client,
-            items,
-            business,
-        });
-    }
-
-    function createItem(name, price) {
-        return pb.collection("items").create({
-            name,
-            price,
-        });
-    }
-
-    function addItemForm() {
-        // add functionality for variable amount of items per invoice
-        return
+    function calculateTotal(items) {
+        return items.reduce((total, item) => total + item.price * item.quantity, 0);
     }
 
     return (
         <>
-            <h1>Invoice</h1>
-            <form onSubmit={handleSubmit(createInvoice)}>
-                <input type="text" placeholder="Client name" {...register("client")}/>
-                <input type="text" placeholder="Business name" {...register("business")}/>
-                <button type="submit">Generate</button>
-            </form>
+            <div className="flex space-x-4 p-2">
+                <span>[Date]</span>
+                <h1 className="text-2xl font-bold text-center">Invoice #</h1>
+            </div>
 
-            <h2>Items</h2>
-            <form onSubmit={handleSubmit(createItem)}>
-                <input type="text" placeholder="Item name" {...register("name")}/>
-                <input type="number" placeholder="Price" {...register("price")}/>
-                <button type="submit">Add item</button>
-            </form>
+            <div className="grid grid-rows-6 gap-4">
+                <div className="grid grid-cols-6 justify-items-center">
+                    <p>Quantity</p>
+                    <p className="col-span-3">Description</p>
+                    <p>Unit Price</p>
+                    <p>Total</p>
+                </div>
+
+                {invoice.items.map((item) => (
+                    <div className="grid grid-cols-6 justify-items-center">
+                        <p>{item.quantity}</p>
+                        <p className="col-span-3">{item.name}</p>
+                        <p>${item.price}</p>
+                        <p>${item.price * item.quantity}</p>
+                    </div>
+                ))}
+
+                <div className="grid grid-cols-6 justify-items-center font-bold">
+                    <div></div>
+                    <p className="col-span-3 justify-self-end">Total</p>
+                    <div></div>
+                    <p>${calculateTotal(invoice.items)}</p>
+                </div>
+            </div>
         </>
     )
 }
