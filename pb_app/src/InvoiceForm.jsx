@@ -6,10 +6,6 @@ export default function InvoiceForm() {
     const [items, setItems] = useState([]);
     const [item, setItem] = useState({});
 
-    useEffect(() => {
-
-    }, [items]);
-
     function createInvoice(client, business, ...items) {
         return pb.collection("invoices").create({
             client,
@@ -18,11 +14,16 @@ export default function InvoiceForm() {
         });
     }
 
-    function createItem(name, price) {
+    function createItem(quantity, description, price) {
         return pb.collection("items").create({
-            name,
+            quantity,
+            description,
             price,
         });
+    }
+
+    function addItem(item) {
+        setItems([...items, item]);
     }
 
     return (
@@ -34,9 +35,19 @@ export default function InvoiceForm() {
                 <input className="border" type="text" placeholder="Business name" {...register("business")}/>
                 <form className="flex flex-col items-center gap-2" onSubmit={handleSubmit(createItem)}>
                     <span>Items</span>
-                    <input className="border" type="text" placeholder="Item name" {...register("name")}/>
-                    <input className="border" type="number" min={0} step="any" placeholder="Price" {...register("price")}/>
-                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white border border-blue-500 hover:border-transparent rounded w-full py-1 px-3 hover:cursor-pointer">+</button>
+                    {items.map((item) => (
+                        <div className="flex flex-row items-center space-x-4">
+                            <span>{item.quantity} x</span>
+                            <span>{item.description}</span>
+                            <span>${item.price}</span>
+                        </div>
+                    ))}
+                    <div className="flex flex-row items-center space-x-4">
+                        <input className="border" type="number" min={1} placeholder="Quantity" {...register("quantity")}/>
+                        <input className="border" type="text" placeholder="Description" {...register("description")}/>
+                        <input className="border" type="number" min={0} step="any" placeholder="Price" {...register("price")}/>
+                        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white border border-blue-500 hover:border-transparent rounded w-full py-1 px-3 hover:cursor-pointer">+</button>
+                    </div>
                 </form>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Create Invoice</button>
             </form>
