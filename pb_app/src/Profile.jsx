@@ -42,6 +42,22 @@ export default function Profile() {
             { name: "Gadget 3", price: 20, quantity: 4 }
           ],
         },
+        {
+          client: "Sarah Lee",
+          business: "JKL Corporation",
+          items: [
+            { name: "Product 4", price: 25, quantity: 2 },
+            { name: "Product 5", price: 20, quantity: 3 }
+          ],
+        },
+        {
+          client: "Robert Miller",
+          business: "RST Ltd",
+          items: [
+            { name: "Service Z", price: 45, quantity: 1 },
+            { name: "Service W", price: 55, quantity: 1 }
+          ],
+        },
       ];
 
     function calculateTotal(items) {
