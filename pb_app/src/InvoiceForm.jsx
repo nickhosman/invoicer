@@ -10,7 +10,6 @@ export default function InvoiceForm() {
     const [itemDescription, setItemDescription] = useState("");
     const [itemPrice, setItemPrice] = useState(0);
     const [itemError, setItemError] = useState("");
-    const [dummy, setDummy] = useState(0);
     const [disabled, setDisabled] = useState(false);
 
     function createInvoice(client, business, ...items) {
