@@ -9,7 +9,9 @@ export default function InvoiceForm() {
     const [itemQuantity, setItemQuantity] = useState(0);
     const [itemDescription, setItemDescription] = useState("");
     const [itemPrice, setItemPrice] = useState(0);
+    const [itemError, setItemError] = useState("");
     const [dummy, setDummy] = useState(0);
+    const [disabled, setDisabled] = useState(false);
 
     function createInvoice(client, business, ...items) {
         return pb.collection("invoices").create({
@@ -26,6 +28,14 @@ export default function InvoiceForm() {
             price,
         });
     }
+
+    useEffect(() => {
+        if (itemQuantity <= 0 || itemPrice <= 0 || itemDescription.trim() === "") {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+        }
+    }), [itemQuantity, itemPrice, itemDescription];
 
     return (
         <>
@@ -44,15 +54,24 @@ export default function InvoiceForm() {
                             <span>${item.price}</span>
                         </div>
                     ))}
+                    {itemError && <span className="text-red-500">{itemError}</span>}
                     <div className="flex flex-row items-center space-x-4">
                         <div className="flex flex-row items-center space-x-4">
                             <input className="border" type="number" min={1} placeholder="Quantity" value={itemQuantity} onChange={(e) => setItemQuantity(e.target.value)} required />
                             <input className="border" type="text" placeholder="Description" value={itemDescription} onChange={(e) => setItemDescription(e.target.value)} required />
                             <input className="border" type="number" min={0} step="any" placeholder="Price" value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} required />
                         </div>
-                        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white border border-blue-500 hover:border-transparent rounded w-full py-1 px-3 hover:cursor-pointer" type="button" onClick={(e) => {
+                        <button className={!disabled ? "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white border border-blue-500 hover:border-transparent rounded w-full py-1 px-3 hover:cursor-pointer" : "bg-blue-500 text-white font-semibold py-1 px-3 opacity-50 cursor-not-allowed rounded w-full"} type="button" disabled={disabled} onClick={(e) => {
                             e.preventDefault();
-                            setItems([...items, { quantity: itemQuantity, description: itemDescription, price: itemPrice }]);
+                            if (itemQuantity <= 0 || itemPrice <= 0 || itemDescription.trim() === "") {
+                                setItemError("Invalid item");
+                            } else {
+                                setItemError("");
+                                setItems([...items, { quantity: itemQuantity, description: itemDescription, price: itemPrice }]);
+                                setItemQuantity(0);
+                                setItemDescription("");
+                                setItemPrice(0);
+                            }
                         }}>+</button>
                     </div>
                 </div>
