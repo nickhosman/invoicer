@@ -52,6 +52,10 @@ export default function InvoiceForm() {
                             <span>{item.description}</span>
                             <span>@</span>
                             <span>${item.price}</span>
+                            <button className="g-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white border border-red-500 hover:border-transparent rounded py-1 px-3 hover:cursor-pointer" onClick={(e) => {
+                                e.preventDefault();
+                                setItems(items.filter((i) => i !== item));
+                            }}>x</button>
                         </div>
                     ))}
                     {itemError && <span className="text-red-500">{itemError}</span>}
