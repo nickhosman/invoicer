@@ -50,6 +50,7 @@ export default function InvoiceForm() {
                             <span>{item.quantity}</span>
                             <span>x</span>
                             <span>{item.description}</span>
+                            <span>@</span>
                             <span>${item.price}</span>
                         </div>
                     ))}
