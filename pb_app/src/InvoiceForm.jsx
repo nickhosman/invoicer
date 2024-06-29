@@ -4,13 +4,14 @@ import pb from "./lib/pocketbase";
 
 export default function InvoiceForm() {
     const { register, handleSubmit } = useForm();
-    const [ items, setItems ] = useState([]);
+    const [ items, setItems ] = useState({});
     const [item, setItem] = useState({});
     const [itemQuantity, setItemQuantity] = useState(0);
     const [itemDescription, setItemDescription] = useState("");
     const [itemPrice, setItemPrice] = useState(0);
     const [itemError, setItemError] = useState("");
     const [disabled, setDisabled] = useState(false);
+    const [count, setCount] = useState(0);
 
     function createInvoice(client, business, ...items) {
         return pb.collection("invoices").create({
@@ -45,19 +46,21 @@ export default function InvoiceForm() {
                 <input className="border" type="text" placeholder="Business name" {...register("business")}/>
                 <div className="flex flex-col items-center gap-2">
                     <span>Items</span>
-                    {items.map((item) => (
-                        <div className="flex flex-row items-center space-x-4">
-                            <span>{item.quantity}</span>
+                    {Object.keys(items).map((key) => (
+                        <div className="flex flex-row items-center space-x-4" key={key}>
+                            <span>{items[key].quantity}</span>
                             <span>x</span>
-                            <span>{item.description}</span>
+                            <span>{items[key].description}</span>
                             <span>@</span>
-                            <span>${item.price}</span>
+                            <span>${items[key].price}</span>
                             <button className="bg-transparent hover:bg-yellow-500 text-yellow-700 font-semibold hover:text-white border border-yellow-500 hover:border-transparent rounded w-full py-1 px-3 hover:cursor-pointer" onClick={(e) => {
                                 e.preventDefault();
                             }}>edit</button>
                             <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white border border-red-500 hover:border-transparent rounded py-1 px-3 hover:cursor-pointer" onClick={(e) => {
                                 e.preventDefault();
-                                setItems(items.filter((i) => i !== item));
+                                const newItems = { ...items };
+                                delete newItems[key];
+                                setItems(newItems);
                             }}>x</button>
                         </div>
                     ))}
@@ -74,10 +77,13 @@ export default function InvoiceForm() {
                                 setItemError("Invalid item");
                             } else {
                                 setItemError("");
-                                setItems([...items, { quantity: itemQuantity, description: itemDescription, price: itemPrice }]);
+                                const newItems = { ...items };
+                                newItems[count] = { quantity: itemQuantity, description: itemDescription, price: itemPrice };
+                                setItems(newItems);
                                 setItemQuantity(0);
                                 setItemDescription("");
                                 setItemPrice(0);
+                                setCount(count + 1);
                             }
                         }}>+</button>
                     </div>
