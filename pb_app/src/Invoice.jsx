@@ -14,7 +14,7 @@ export default function Invoice() {
     }
 
     return (
-        <>
+        <div className="flex flex-col items-center">
             <div className="flex space-x-4 p-2">
                 <span>[Date]</span>
                 <h1 className="text-2xl font-bold text-center">Invoice #</h1>
@@ -44,6 +44,6 @@ export default function Invoice() {
                     <p>${calculateTotal(invoice.items)}</p>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
