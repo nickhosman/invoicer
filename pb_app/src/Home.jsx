@@ -6,6 +6,7 @@ export default function Home() {
                 <div className="absolute">
                     <h1 className="text-white text-4xl font-bold text-center">Welcome to the Invoice App</h1>
                     <p className="text-white text-lg text-center">Create and manage invoices with ease</p>
+                    <span>Really neeed to figure out the spacing here.</span>
                 </div>
             </div>
         </>
