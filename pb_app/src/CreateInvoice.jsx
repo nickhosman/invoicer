@@ -1,4 +1,11 @@
+import { useState } from "react";
+
 export default function CreateInvoice() {
+    const [client, setClient] = useState("");
+    const [business, setBusiness] = useState("");
+    const [items, setItems] = useState([]);
+    const [quantity, setQuantity] = useState(0);
+    
     return (
         <div>
             <h1>Create Invoice</h1>
