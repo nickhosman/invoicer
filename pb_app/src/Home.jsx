@@ -11,7 +11,8 @@ export default function Home() {
                     <Link className="p-4 bg-blue-950 text-white self-center rounded-lg cursor-pointer w-40 font-bold flex items-center justify-center select-none" to="/invoice/create">Get Started</Link>
                 </div>
             </div>
-            <div className="h-96 w-full bg-slate-700">
+            <div className="h-96 w-full bg-slate-700 flex justify-center items-center">
+                <p className="text-white font-bold">This is a work in progress</p>
             </div>
         </div>
     )
