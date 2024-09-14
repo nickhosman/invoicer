@@ -14,6 +14,18 @@ export default function Home() {
             <div className="h-96 w-full bg-slate-700 flex justify-center items-center">
                 <p className="text-white font-bold">This is a work in progress</p>
             </div>
+            <div className="h-96 bg-slate-400 w-full flex flex-col justify-center items-center">
+                <h2 className="text-2xl font-bold">Features</h2>
+                <ul>
+                    <li>Client management</li>
+                    <li>Invoice creation</li>
+                    <li>Invoice management</li>
+                    <li>Item management</li>
+                </ul>
+            </div>
+            <div className="w-full h-6 text-white flex items-center justify-center bg-black">
+                <span>Nick Hosman 2024</span>
+            </div>
         </div>
     )
 }
