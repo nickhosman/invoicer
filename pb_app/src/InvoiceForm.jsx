@@ -14,8 +14,8 @@ export default function InvoiceForm() {
     const [count, setCount] = useState(0);
 
     function createInvoice(client, business, ...items) {
-        for (item in items) {
-            createItem(item.quantity, item.description, item.price);
+        for (i in items) {
+            createItem(i.quantity, i.description, i.price);
         };
 
         return pb.collection("invoices").create({
@@ -92,7 +92,10 @@ export default function InvoiceForm() {
                         }}>+</button>
                     </div>
                 </div>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Create Invoice</button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e) => {
+                    e.preventDefault();
+                    createInvoice();
+                }}>Create Invoice</button>
             </form>
             </div>
         </>
