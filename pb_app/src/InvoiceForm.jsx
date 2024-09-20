@@ -14,6 +14,10 @@ export default function InvoiceForm() {
     const [count, setCount] = useState(0);
 
     function createInvoice(client, business, ...items) {
+        for (item in items) {
+            createItem(item.quantity, item.description, item.price);
+        };
+
         return pb.collection("invoices").create({
             client,
             items,
