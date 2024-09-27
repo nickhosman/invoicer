@@ -7,7 +7,7 @@ export default function MyInvoices({ invoices }) {
     return (
         <div>
             <span>My Invoices</span>
-            
+
             <div>
                 <button>
                     Create New Invoice
@@ -17,6 +17,9 @@ export default function MyInvoices({ invoices }) {
                 {invoices.map((invoice) => (
                     <InvoicePreview invoice={invoice} key={invoice.id}/>
                 ))}
+            </div>
+            <div>
+                <span>this is a test for layout options</span>
             </div>
         </div>
     )
