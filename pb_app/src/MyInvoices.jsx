@@ -7,12 +7,11 @@ export default function MyInvoices({ invoices }) {
     return (
         <div>
             <span>My Invoices</span>
+            
             <div>
-                {creating ?
-                    <button>
-                        Create New Invoice
-                    </button>
-                : null}
+                <button>
+                    Create New Invoice
+                </button>
             </div>
             <div>
                 {invoices.map((invoice) => (
